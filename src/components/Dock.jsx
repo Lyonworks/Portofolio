@@ -7,6 +7,7 @@ import {
   useTransform,
   AnimatePresence,
 } from "framer-motion";
+
 import {
   Children,
   cloneElement,
@@ -131,7 +132,7 @@ export default function Dock({
           isHovered.set(0);
           mouseX.set(Infinity);
         }}
-        className={`${className} absolute bottom-2 left-1/2 -translate-x-1/2 flex items-end w-fit gap-0 rounded-full border-neutral-700 border-2 pb-2 px-4`}
+        className={`${className} absolute bottom-2 left-1/2 -translate-x-1/2 flex items-end w-fit gap-0 rounded-full border-2 pb-2 px-4 border-[#303030] shadow-[0_0_12px_#303030] dark:border-[#a2a2a2] dark:shadow-[0_0_12px_#a2a2a2]`}
         style={{ height: panelHeight }}
         role="toolbar"
         aria-label="Application dock"
