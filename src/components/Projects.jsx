@@ -12,10 +12,10 @@ export default function Projects() {
         {data.map((p, i) => (
           <div
             key={i}
-            className="border border-gray-200 dark:border-gray-700 p-4 rounded transition hover:shadow-lg"
+            className="border border-gray-200 p-4 rounded transition hover:shadow-lg"
           >
             <h3 className="text-xl font-bold mb-2">{p.title}</h3>
-            <p className="text-gray-600 dark:text-gray-300">{p.desc}</p>
+            <p className="text-gray-600">{p.desc}</p>
           </div>
         ))}
       </div>

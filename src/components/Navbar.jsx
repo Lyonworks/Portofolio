@@ -7,47 +7,35 @@ import {
   FaCode,
   FaGithub,
   FaLinkedin,
-  FaSun,
-  FaMoon,
 } from 'react-icons/fa';
 
-export default function Navbar({ darkMode, setDarkMode }) {
-  const iconColor = darkMode ? '#000' : '#fff';
+export default function Navbar() {
 
   const items = [
     {
-      icon: <FaHome size={22} color={iconColor} />,
+      icon: <FaHome size={`20`} />,
       label: 'Home',
-      onClick: () => (window.location.hash = '#home'),
+      onClick: () => (window.location.hash = ''),
     },
     {
-      icon: <FaUser size={22} color={iconColor} />,
+      icon: <FaUser size={`20`} />,
       label: 'About',
       onClick: () => (window.location.hash = '#about'),
     },
     {
-      icon: <FaCode size={22} color={iconColor} />,
+      icon: <FaCode size={`20`} />,
       label: 'Projects',
       onClick: () => (window.location.hash = '#projects'),
     },
     {
-      icon: <FaGithub size={22} color={iconColor} />,
+      icon: <FaGithub size={`20`} />,
       label: 'Github',
-      onClick: () => window.open('https://github.com/', '_blank'),
+      onClick: () => window.open('https://github.com/Lyonworks', '_blank'),
     },
     {
-      icon: <FaLinkedin size={22} color={iconColor} />,
+      icon: <FaLinkedin size={`20`} />,
       label: 'LinkedIn',
-      onClick: () => window.open('https://linkedin.com/', '_blank'),
-    },
-    {
-      icon: darkMode ? (
-        <FaSun size={22} color={iconColor} />
-      ) : (
-        <FaMoon size={22} color={iconColor} />
-      ),
-      label: 'Theme',
-      onClick: () => setDarkMode(!darkMode),
+      onClick: () => window.open('https://www.linkedin.com/in/ikmalion', '_blank'),
     },
   ];
 
@@ -55,7 +43,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
     <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 z-50">
       <Dock
         items={items}
-        panelHeight={55}
+        panelHeight={50}
         baseItemSize={33}
         magnification={44}
       />

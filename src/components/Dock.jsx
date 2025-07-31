@@ -86,7 +86,7 @@ function DockLabel({ children, className = "", isHovered }) {
           animate={{ opacity: 1, y: -10 }}
           exit={{ opacity: 0, y: 0 }}
           transition={{ duration: 0.2 }}
-          className={`absolute -top-6 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded shadow transition-opacity duration-300 ${isHovered.get() ? 'opacity-100' : 'opacity-0'}`}
+          className={`absolute -top-6  transform -translate-x-1/2 text-[#F5F5F5] text-xs px-2 py-1 rounded shadow transition-opacity duration-300 ${isHovered.get() ? 'opacity-100' : 'opacity-0'}`}
           role="tooltip"
         >
           {children}
@@ -98,7 +98,7 @@ function DockLabel({ children, className = "", isHovered }) {
 
 function DockIcon({ children, className = "" }) {
   return (
-    <div className={`w-full h-full flex items-center justify-center ${className}`}>
+    <div className={`w-full h-full  flex items-center justify-center ${className}`}>
       {children}
     </div>
   );
@@ -132,7 +132,7 @@ export default function Dock({
           isHovered.set(0);
           mouseX.set(Infinity);
         }}
-        className={`${className} absolute bottom-2 left-1/2 -translate-x-1/2 flex items-end w-fit gap-0 rounded-full border-2 pb-2 px-4 border-[#303030] shadow-[0_0_12px_#303030] dark:border-[#a2a2a2] dark:shadow-[0_0_12px_#a2a2a2]`}
+        className={`${className} absolute bottom-2 left-1/2 -translate-x-1/2 flex items-end w-fit gap-0 rounded-full border-2 pb-2 px-4 border-[#0000FF] shadow-[0_0_12px_#0000FF] bg-black transition-colors duration-300`}
         style={{ height: panelHeight }}
         role="toolbar"
         aria-label="Application dock"

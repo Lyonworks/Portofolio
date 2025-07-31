@@ -1,4 +1,3 @@
-/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     "./index.html",
@@ -6,14 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'dot-grid': "radial-gradient(currentColor 1px, transparent 1px)",
-      },
-      backgroundSize: {
-        'dot-grid': '24px 24px',
-      }
-    },
+      backgroundImage: {'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',},
+      animation: {'bounce-slow': 'bounce 2s infinite',},
+    }
   },
-  darkMode: 'class',
   plugins: [],
 }

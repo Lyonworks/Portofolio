@@ -1,37 +1,23 @@
-import { useState, useEffect } from 'react';
+'use client';
+
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import About from './components/About';
-import Projects from './components/Projects';
+import TechStack from './components/TechStack';
 import Footer from './components/Footer';
-import DarkModeToggle from './components/DarkModeToggle';
+import CircularText from './components/CircularText';
+import Clock from './components/Clock';
+import DarkVeil from './components/DarkVeil';
 
-function App() {
-  const [darkMode, setDarkMode] = useState(
-    localStorage.getItem('theme') === 'dark'
-  );
-
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', darkMode);
-    localStorage.setItem('theme', darkMode ? 'dark' : 'light');
-  }, [darkMode]);
-
+export default function App() {
   return (
-    <div
-      className="min-h-screen flex flex-col relative transition-colors duration-300"
-      style={{
-        background: darkMode ? '#fff' : '#000',
-        color: darkMode ? '#000' : '#fff',
-      }}
-    >
-      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-      <DarkModeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
+    <div className="relative z-0 min-h-screen overflow-x-hidden">
+      <DarkVeil />
+      <Navbar />
       <Hero />
-      <About />
-      <Projects />
+      <TechStack />
       <Footer />
+      <CircularText text="Lyon" spinDuration={22} />
+      <Clock showDate={false} hour12={false} />
     </div>
   );
 }
-
-export default App;
