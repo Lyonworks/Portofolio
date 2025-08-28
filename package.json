@@ -3,9 +3,8 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "vite",
-   
     "preview": "vite preview",
-      "build": "node ./node_modules/vite/bin/vite.js build"
+    "build": "node ./node_modules/vite/bin/vite.js build"
   },
   "dependencies": {
     "@react-three/drei": "^9.56.6",
