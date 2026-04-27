@@ -84,7 +84,6 @@ function ProjectCard({ title, description, tag, image, url }) {
     >
       <BorderGlow {...CARD_GLOW}>
         <div className="flex flex-col h-full transition-transform duration-300">
-          {/* Thumbnail */}
           <div className="w-full h-36 overflow-hidden rounded-t-[18px]">
             <img
               src={image}
