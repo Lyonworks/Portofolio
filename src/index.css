@@ -18,7 +18,7 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: ##F5F5F5;
+  color: #F5F5F5;
   background-color: #000000;
 
   font-synthesis: none;
@@ -32,16 +32,13 @@ a {
   text-decoration: inherit;
 }
 
-a:hover {
-}
-
 body::-webkit-scrollbar {
   display: none;
 }
 
 body {
   background-color: #000000;
-  color: ##F5F5F5;
+  color: #F5F5F5;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
@@ -69,9 +66,11 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
@@ -86,4 +85,14 @@ html, body {
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
   display: none;
+}
+
+.grainient-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
 }

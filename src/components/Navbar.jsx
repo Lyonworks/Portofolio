@@ -31,12 +31,7 @@ export default function Navbar() {
       icon: <FaGithub size={`20`} />,
       label: 'Github',
       onClick: () => window.open('https://github.com/Lyonworks', '_blank'),
-    },
-    {
-      icon: <FaLinkedin size={`20`} />,
-      label: 'LinkedIn',
-      onClick: () => window.open('https://www.linkedin.com/in/ikmalion', '_blank'),
-    },
+    }
   ];
 
   return (

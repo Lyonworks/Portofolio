@@ -4,5 +4,6 @@
     "javascript": "javascript",
     "javascriptreact": "javascript"
   },
-  "css.validate": false
+  "css.validate": false,
+  "livePreview.defaultPreviewPath": "/index.html"
 }
