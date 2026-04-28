@@ -3,8 +3,8 @@
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
-import Projects from './components/Projects';
 import TechStack from './components/TechStack';
+import Projects from './components/Projects';
 import Footer from './components/Footer';
 import CircularText from './components/CircularText';
 import Clock from './components/Clock';
@@ -17,8 +17,8 @@ export default function App() {
       <Navbar />
       <Hero />
       <About />
-      <Projects />
       <TechStack />
+      <Projects />
       <Footer />
       <CircularText text="Lyon" spinDuration={22} />
       <Clock showDate={false} hour12={false} />

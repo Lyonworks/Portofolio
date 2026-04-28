@@ -7,31 +7,11 @@ import efe from '../assets/thumbnails/efe.jpg';
 const WEB_PROJECTS = [
   {
     id: 'portfolio',
-    title: 'Portfolio Site',
-    description: 'Personal dev portfolio with blog and case studies.',
-    tag: 'Next.js',
-    image: '/assets/thumbnails/portfolio.png',
-  },
-  {
-    id: 'ecommerce',
-    title: 'E-Commerce UI',
-    description: 'Full storefront with cart and checkout flow.',
-    tag: 'React',
-    image: '/assets/thumbnails/ecommerce.png',
-  },
-  {
-    id: 'dashboard',
-    title: 'Analytics Dashboard',
-    description: 'Real-time metrics visualisation panel.',
-    tag: 'Vue',
-    image: '/assets/thumbnails/dashboard.png',
-  },
-  {
-    id: 'chat',
-    title: 'Chat App',
-    description: 'WebSocket-based real-time messaging.',
-    tag: 'Node.js',
-    image: '/assets/thumbnails/chat.png',
+    title: 'Game Site',
+    description: 'Personal game site with blog and merchandise store.',
+    tag: 'Html/CSS/JS/PHP',
+    image: tgcokm,
+    url: 'https://pplgrolas.my.id/0079457224/',
   },
 ];
 
