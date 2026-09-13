@@ -143,6 +143,8 @@ const GooeyNav = ({
             display: grid;
             place-items: center;
             z-index: 1;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-weight: 600;
           }
           .effect.text {
             color: white;
@@ -290,7 +292,7 @@ const GooeyNav = ({
                   onClick={e => handleClick(e, index)}
                   href={item.href}
                   onKeyDown={e => handleKeyDown(e, index)}
-                  className="font-mono font-semibold tracking-wider"
+                  className="font-mono font-semibold outline-none py-[0.6em] px-[1em] inline-block"
                 >
                   {item.label}
                 </a>
