@@ -38,15 +38,15 @@ export default function ScrollButton({ className = "" }) {
     >
       <button 
         onClick={handleClick}  
-        className={`group inline-flex items-center justify-center p-2 text-[#F5F5F5] transition-colors duration-300
+        className={`group inline-flex items-center justify-center rounded-full border-2 p-2 bg-black text-[#F5F5F5] border-[#0000FF] shadow-[0_0_12px_#0000FF] transition-colors duration-300
           ${className}
         `}
       >
         {scrolled ? (
-            <IoIosArrowDown className="h-5 w-5 transition-all duration-300 group-hover:text-[#0000FF] group-hover:drop-shadow-[0_0_8px_rgba(0,0,255,0.8)]" />
-          ) : (
-            <IoIosArrowUp className="h-5 w-5 transition-all duration-300 group-hover:text-[#0000FF] group-hover:drop-shadow-[0_0_8px_rgba(0,0,255,0.8)]" />
-          )}
+          <IoIosArrowDown className="h-5 w-5" />
+        ) : (
+          <IoIosArrowUp className="h-5 w-5" />
+        )}
       </button>
     </div>
   );
