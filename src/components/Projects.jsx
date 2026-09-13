@@ -9,7 +9,7 @@ const WEB_PROJECTS = [
     id: 'portfolio',
     title: 'Game Site',
     description: 'Personal game site with blog and merchandise store.',
-    tag: 'Html/CSS/JS/PHP',
+    tag: 'HTML/CSS/JS/PHP',
     image: tgcokm,
     url: 'https://pplgrolas.my.id/0079457224/',
   },

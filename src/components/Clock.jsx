@@ -33,7 +33,7 @@ export default function Clock({
 
   return (
     <div
-      className={`fixed top-6 right-6 z-50 rounded-md 0 backdrop-blur px-3 py-1 text-[#F5F5F5] text-xs md:text-sm font-mono shadow transition-colors ${className}`}
+      className={`fixed top-6 right-6 z-50 rounded-md 0 px-3 py-1 text-[#F5F5F5] text-xs md:text-sm font-mono shadow transition-colors ${className}`}
     >
       <span>{time}</span>
       {showDate && <span className="ml-2 opacity-70">{date}</span>}

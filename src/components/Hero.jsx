@@ -18,7 +18,7 @@ export default function Hero() {
               hoverIntensity={hoverIntensity}
               enableHover={enableHover}
             >
-              IKMALION
+              IKMALION ARDYANSYAH
             </FuzzyText>
 
             <TextType
