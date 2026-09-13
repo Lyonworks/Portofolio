@@ -38,7 +38,7 @@ export default function ScrollButton({ className = "" }) {
     >
       <button 
         onClick={handleClick}  
-        className={`group relative h-12 inline-flex items-center justify-center rounded-full bg-transparent text-[#F5F5F5] border border-[#F5F5F5] hover:shadow-[0_0_12px_#F5F5F5] hover:w-32 transition-all duration-300 
+        className={`group relative h-12 inline-flex items-center justify-center rounded-full bg-transparent text-[#F5F5F5] border border-[#0000FF] hover:shadow-[0_-2px_10px_rgba(0,0,255,0.5)] hover:w-32 transition-all duration-300 
           ${scrolled ? 'w-36' : 'w-12'}
           ${className}
         `}
@@ -50,7 +50,6 @@ export default function ScrollButton({ className = "" }) {
             : 'group-hover:opacity-100 group-hover:-translate-x-2 opacity-0'
           }
         `}>
-          {scrolled ? 'Scroll' : 'Back to Top'}
         </div>
 
         <div className="absolute right-3.5 z-10">
