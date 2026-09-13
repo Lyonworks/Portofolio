@@ -102,10 +102,10 @@ function ProjectGrid({ projects }) {
 
 export default function Projects() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const navItems = TABS.map((tab, i) => ({
+  const navItems = TABS.map((tab) => ({
     label: tab.label,
-    href: `#tab-${i}`,
-  }));
+    href: `#${tab.label.toLowerCase()}`,
+}));
 
   const activeProjects = TABS[activeIndex]?.projects ?? [];
 
