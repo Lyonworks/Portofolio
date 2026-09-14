@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import GooeyNav from './GooeyNav';
 import BorderGlow from './BorderGlow';
+import eod from '../assets/thumbnails/eod.png';
 import tgcokm from '../assets/thumbnails/tgcokm.png';
 import efe from '../assets/thumbnails/efe.jpg';
 
@@ -16,6 +17,14 @@ const WEB_PROJECTS = [
 ];
 
 const GAME_PROJECTS = [
+  {
+    id: 'psychological horror',
+    title: 'Eyes of Desperation',
+    description: 'A psychological horror experience where fear isn\'t your biggest enemy.',
+    tag: 'Unity',
+    image: eod,
+    url: 'https://remybilek.itch.io/eyes-of-desperation',
+  },
   {
     id: 'platformer',
     title: 'The Golden Curse of Keong Mas',
@@ -48,7 +57,7 @@ const CARD_GLOW = {
 
 function ProjectTag({ label }) {
   return (
-    <span className="mt-3 self-start text-xs px-3 py-1 rounded-full bg-white/10 text-white-300 border border-white/10">
+    <span className="mt-3 self-start text-xs font-mono px-3 py-1 rounded-full bg-white/10 text-white-300 border border-white/10">
       {label}
     </span>
   );
@@ -73,13 +82,13 @@ function ProjectCard({ title, description, tag, image, url }) {
             />
           </div>
           <div className="flex flex-col flex-1 p-4">
-            <h3 className="text-sm font-semibold text-white mb-1 group-hover:text-blue-400 transition-colors duration-300">
+            <h3 className="text-sm font-mono font-semibold text-white mb-1 group-hover:text-blue-400 transition-colors duration-300">
               {title}
-            </h3>
-            <p className="text-xs text-white/50 leading-relaxed flex-1">{description}</p>
+            </h3> 
+            <p className="text-xs font-mono text-white/50 leading-relaxed flex-1">{description}</p>
             <div className="flex items-center justify-between mt-1">
               <ProjectTag label={tag} />
-              <span className="text-xs text-white/30 group-hover:text-white/60 transition-colors duration-300">
+              <span className="text-xs font-mono text-white/30 group-hover:text-white/60 transition-colors duration-300">
                 View →
               </span>
             </div>

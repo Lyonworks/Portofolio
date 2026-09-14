@@ -86,7 +86,7 @@ function DockLabel({ children, className = "", isHovered }) {
           animate={{ opacity: 1, y: -10 }}
           exit={{ opacity: 0, y: 0 }}
           transition={{ duration: 0.2 }}
-          className={`absolute -top-6  transform -translate-x-1/2 text-[#F5F5F5] text-xs px-2 py-1 rounded shadow transition-opacity duration-300 ${isHovered.get() ? 'opacity-100' : 'opacity-0'}`}
+          className={`absolute -top-6  transform -translate-x-1/2 text-[#F5F5F5] text-xs font-mono font-semibold px-2 py-1 rounded shadow transition-opacity duration-300 ${isHovered.get() ? 'opacity-100' : 'opacity-0'}`}
           role="tooltip"
         >
           {children}

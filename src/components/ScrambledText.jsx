@@ -20,8 +20,9 @@ const ScrambledText = ({
     if (!rootRef.current) return;
 
     const split = SplitText.create(rootRef.current.querySelector('p'), {
-      type: 'chars',
-      charsClass: 'inline-block will-change-transform'
+      type: 'words,chars',
+      charsClass: 'inline will-change-transform',
+      wordsClass: 'inline-block whitespace-nowrap'
     });
 
     split.chars.forEach(el => {

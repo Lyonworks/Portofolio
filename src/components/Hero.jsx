@@ -11,16 +11,24 @@ export default function Hero() {
   return (
     <div className="w-full overflow-x-hidden">
       <section className="min-h-screen w-full flex flex-col items-center justify-center text-center px-4">
-        <div className="space-y-6">
-          <div className="space-y-6">
-            <FuzzyText
-              baseIntensity={0.01}
-              hoverIntensity={hoverIntensity}
-              enableHover={enableHover}
-            >
-              IKMALION ARDYANSYAH
-            </FuzzyText>
+        
+        <div className="w-full max-w-full space-y-6">
 
+          {/* Fuzzy Text */}
+          <div className="w-full flex justify-center overflow-visible">
+            <div className="scale-[0.82] sm:scale-100 origin-center whitespace-nowrap">
+              <FuzzyText
+                baseIntensity={0.01}
+                hoverIntensity={hoverIntensity}
+                enableHover={enableHover}
+              >
+                IKMALION ARDYANSYAH
+              </FuzzyText>
+            </div>
+          </div>
+
+          {/* Text Type */}
+          <div className="w-full flex justify-center">
             <TextType
               text={["WEB DEVELOPER", "GAME DEVELOPER"]}
               typingSpeed={75}
@@ -29,7 +37,9 @@ export default function Hero() {
               cursorCharacter="|"
             />
           </div>
-          <ScrollButton/>
+
+          <ScrollButton />
+
         </div>
       </section>
     </div>
