@@ -3,8 +3,10 @@
 import FuzzyText from './FuzzyText';
 import TextType from './TextType';
 import ScrollButton from './ScrollButton';
+import { useLanguage } from '../LanguageContext';
 
 export default function Hero() {
+  const { language } = useLanguage();
   const hoverIntensity = 0.3;
   const enableHover = true;
 
@@ -30,7 +32,7 @@ export default function Hero() {
           {/* Text Type */}
           <div className="w-full flex justify-center">
             <TextType
-              text={["WEB DEVELOPER", "GAME DEVELOPER"]}
+              text={language === 'id' ? ["PENGEMBANG WEB", "PENGEMBANG GAME"] : ["WEB DEVELOPER", "GAME DEVELOPER"]}
               typingSpeed={75}
               pauseDuration={1500}
               showCursor={true}

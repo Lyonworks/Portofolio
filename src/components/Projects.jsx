@@ -4,12 +4,13 @@ import BorderGlow from './BorderGlow';
 import eod from '../assets/thumbnails/eod.png';
 import tgcokm from '../assets/thumbnails/tgcokm.png';
 import efe from '../assets/thumbnails/efe.jpg';
+import { useLanguage } from '../LanguageContext';
 
 const WEB_PROJECTS = [
   {
     id: 'portfolio',
     title: 'Game Site',
-    description: 'Personal game site with blog and merchandise store.',
+    description: { en: 'Personal game site with blog and merchandise store.', id: 'Situs game pribadi dengan blog dan toko merchandise.' },
     tag: 'HTML/CSS/JS/PHP',
     image: tgcokm,
     url: 'https://pplgrolas.my.id/0079457224/',
@@ -20,7 +21,7 @@ const GAME_PROJECTS = [
   {
     id: 'psychological horror',
     title: 'Eyes of Desperation',
-    description: 'A psychological horror experience where fear isn\'t your biggest enemy.',
+    description: { en: 'A psychological horror experience where fear isn\'t your biggest enemy.', id: 'Pengalaman horor psikologis ketika rasa takut bukanlah musuh terbesarmu.' },
     tag: 'Unity',
     image: eod,
     url: 'https://remybilek.itch.io/eyes-of-desperation',
@@ -28,7 +29,7 @@ const GAME_PROJECTS = [
   {
     id: 'platformer',
     title: 'The Golden Curse of Keong Mas',
-    description: 'Side-scrolling adventure.',
+    description: { en: 'Side-scrolling adventure.', id: 'Petualangan side-scrolling.' },
     tag: 'Unity',
     image: tgcokm,
     url: 'https://ikmalionn.itch.io/the-golden-curse-of-keong-mas',
@@ -36,7 +37,7 @@ const GAME_PROJECTS = [
   {
     id: 'horror',
     title: 'Escape from Edi',
-    description: 'An indie 3d horror game.',
+    description: { en: 'An indie 3D horror game.', id: 'Game horor 3D indie.' },
     tag: 'Unity',
     image: efe,
     url: 'https://remybilek.itch.io/escape-from-edi',
@@ -44,8 +45,8 @@ const GAME_PROJECTS = [
 ];
 
 const TABS = [
-  { label: 'WEB',  projects: WEB_PROJECTS },
-  { label: 'GAME', projects: GAME_PROJECTS },
+  { label: { en: 'WEB', id: 'WEB' }, projects: WEB_PROJECTS },
+  { label: { en: 'GAME', id: 'GAME' }, projects: GAME_PROJECTS },
 ];
 
 const CARD_GLOW = {
@@ -63,7 +64,7 @@ function ProjectTag({ label }) {
   );
 }
 
-function ProjectCard({ title, description, tag, image, url }) {
+function ProjectCard({ title, description, tag, image, url, language }) {
   return (
     <a
       href={url}
@@ -85,11 +86,11 @@ function ProjectCard({ title, description, tag, image, url }) {
             <h3 className="text-sm font-mono font-semibold text-white mb-1 group-hover:text-blue-400 transition-colors duration-300">
               {title}
             </h3> 
-            <p className="text-xs font-mono text-white/50 leading-relaxed flex-1">{description}</p>
+            <p className="text-xs font-mono text-white/50 leading-relaxed flex-1">{description[language]}</p>
             <div className="flex items-center justify-between mt-1">
               <ProjectTag label={tag} />
               <span className="text-xs font-mono text-white/30 group-hover:text-white/60 transition-colors duration-300">
-                View →
+                {language === 'id' ? 'Lihat' : 'View'} →
               </span>
             </div>
           </div>
@@ -99,21 +100,22 @@ function ProjectCard({ title, description, tag, image, url }) {
   );
 }
 
-function ProjectGrid({ projects }) {
+function ProjectGrid({ projects, language }) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
       {projects.slice(0, 3).map((project) => (
-        <ProjectCard key={project.id} {...project} />
+        <ProjectCard key={project.id} {...project} language={language} />
       ))}
     </div>
   );
 }
 
 export default function Projects() {
+  const { language } = useLanguage();
   const [activeIndex, setActiveIndex] = useState(0);
   const navItems = TABS.map((tab) => ({
-    label: tab.label,
-    href: `#${tab.label.toLowerCase()}`,
+    label: tab.label[language],
+    href: `#${tab.label.en.toLowerCase()}`,
 }));
 
   const activeProjects = TABS[activeIndex]?.projects ?? [];
@@ -128,7 +130,7 @@ export default function Projects() {
         />
       </div>
 
-      <ProjectGrid projects={activeProjects} />
+      <ProjectGrid projects={activeProjects} language={language} />
     </section>
   );
 }
