@@ -96,3 +96,7 @@ body::-webkit-scrollbar {
   z-index: -1;
   pointer-events: none;
 }
+
+.preloader-grainient {
+  z-index: 0;
+}

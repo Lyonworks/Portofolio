@@ -23,6 +23,7 @@ const CircularText = ({
   text,
   spinDuration = 20,
   onHover = "GoBonkers",
+  centered = false,
   className = "",
 }) => {
   const letters = Array.from(text);
@@ -85,7 +86,7 @@ const CircularText = ({
 
   return (
     <motion.div
-      className={`fixed top-0 left-0 m-4 z-50 rounded-full w-[69px] h-[69px] text-[#F5F5F5] font-black text-center cursor-pointer origin-center ${className}`}
+      className={`fixed z-50 rounded-full w-[69px] h-[69px] text-[#F5F5F5] font-black text-center cursor-pointer origin-center transition-[top,left,margin] duration-1000 ease-in-out ${centered ? "top-1/2 left-1/2 -ml-[34.5px] -mt-[34.5px]" : "top-0 left-0 m-4"} ${className}`}
       style={{ rotate: rotation }}
       initial={{ rotate: 0 }}
       animate={controls}
