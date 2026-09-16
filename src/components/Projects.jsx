@@ -1,12 +1,21 @@
 import { useState } from 'react';
 import GooeyNav from './GooeyNav';
 import BorderGlow from './BorderGlow';
-import eod from '../assets/thumbnails/eod.png';
-import tgcokm from '../assets/thumbnails/tgcokm.png';
 import efe from '../assets/thumbnails/efe.jpg';
+import en from '../assets/thumbnails/en.png';
+import tgcokm from '../assets/thumbnails/tgcokm.png';
+import eod from '../assets/thumbnails/eod.png';
 import { useLanguage } from '../LanguageContext';
 
 const WEB_PROJECTS = [
+  {
+    id: 'portfolio',
+    title: 'ExploreNusa',
+    description: { en: '', id: '' },
+    tag: 'LARAVEL/PHP/JS/PROSTGRESQL',
+    image: en,
+    url: 'https://explorenusa-lyon.vercel.app/',
+  }
   {
     id: 'portfolio',
     title: 'Game Site',
