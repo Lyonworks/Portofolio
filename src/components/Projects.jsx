@@ -15,7 +15,7 @@ const WEB_PROJECTS = [
     tag: 'LARAVEL/PHP/JS/PROSTGRESQL',
     image: en,
     url: 'https://explorenusa-lyon.vercel.app/',
-  }
+  },
   {
     id: 'portfolio',
     title: 'Game Site',
