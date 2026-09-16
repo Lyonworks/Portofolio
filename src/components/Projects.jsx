@@ -2,7 +2,7 @@ import { useState } from 'react';
 import GooeyNav from './GooeyNav';
 import BorderGlow from './BorderGlow';
 import efe from '../assets/thumbnails/efe.jpg';
-import en from '../assets/thumbnails/en.jpg';
+import en from '../assets/thumbnails/en.png';
 import tgcokm from '../assets/thumbnails/tgcokm.png';
 import eod from '../assets/thumbnails/eod.png';
 import { useLanguage } from '../LanguageContext';
