@@ -9,7 +9,7 @@ import { useLanguage } from '../LanguageContext';
 
 const WEB_PROJECTS = [
   {
-    id: 'portfolio',
+    id: 'explorenusa',
     title: 'ExploreNusa',
     description: { en: '', id: '' },
     tag: 'LARAVEL/PHP/JS/PROSTGRESQL',
@@ -17,7 +17,7 @@ const WEB_PROJECTS = [
     url: 'https://explorenusa-lyon.vercel.app/',
   },
   {
-    id: 'portfolio',
+    id: 'game-site',
     title: 'Game Site',
     description: { en: 'Personal game site with blog and merchandise store.', id: 'Situs game pribadi dengan blog dan toko merchandise.' },
     tag: 'HTML/CSS/JS/PHP',
@@ -28,15 +28,15 @@ const WEB_PROJECTS = [
 
 const GAME_PROJECTS = [
   {
-    id: 'psychological horror',
-    title: 'Eyes of Desperation',
-    description: { en: 'A psychological horror experience where fear isn\'t your biggest enemy.', id: 'Pengalaman horor psikologis ketika rasa takut bukanlah musuh terbesarmu.' },
+    id: 'escape-from-edi',
+    title: 'Escape from Edi',
+    description: { en: 'An indie 3D horror game.', id: 'Game horor 3D indie.' },
     tag: 'Unity',
-    image: eod,
-    url: 'https://remybilek.itch.io/eyes-of-desperation',
+    image: efe,
+    url: 'https://remybilek.itch.io/escape-from-edi',
   },
   {
-    id: 'platformer',
+    id: 'the-golden-curse-of-keong-mas',
     title: 'The Golden Curse of Keong Mas',
     description: { en: 'Side-scrolling adventure.', id: 'Petualangan side-scrolling.' },
     tag: 'Unity',
@@ -44,13 +44,13 @@ const GAME_PROJECTS = [
     url: 'https://ikmalionn.itch.io/the-golden-curse-of-keong-mas',
   },
   {
-    id: 'horror',
-    title: 'Escape from Edi',
-    description: { en: 'An indie 3D horror game.', id: 'Game horor 3D indie.' },
+    id: 'eyes-of-desperation',
+    title: 'Eyes of Desperation',
+    description: { en: 'A psychological horror experience where fear isn\'t your biggest enemy.', id: 'Pengalaman horor psikologis ketika rasa takut bukanlah musuh terbesarmu.' },
     tag: 'Unity',
-    image: efe,
-    url: 'https://remybilek.itch.io/escape-from-edi',
-  }
+    image: eod,
+    url: 'https://remybilek.itch.io/eyes-of-desperation',
+  },
 ];
 
 const TABS = [
