@@ -1,24 +1,15 @@
 import { useState } from 'react';
 import GooeyNav from './GooeyNav';
 import BorderGlow from './BorderGlow';
-import efe from '../assets/thumbnails/efe.jpg';
-import en from '../assets/thumbnails/en.png';
-import tgcokm from '../assets/thumbnails/tgcokm.png';
 import eod from '../assets/thumbnails/eod.png';
+import tgcokm from '../assets/thumbnails/tgcokm.png';
+import efe from '../assets/thumbnails/efe.jpg';
 import { useLanguage } from '../LanguageContext';
 
 const WEB_PROJECTS = [
   {
     id: 'portfolio',
-    title: 'ExploreNusa',
-    description: { en: 'A tourism platform for exploring Indonesian destinations, attractions, facilities, and traveler reviews.', id: 'Platform wisata untuk menjelajahi destinasi Indonesia, tempat menarik, fasilitas, dan ulasan wisatawan.' },
-    tag: 'LARAVEL/PHP/MYSQL',
-    image: en,
-    url: 'https://explorenusa-lyon.vercel.app/',
-  },
-  {
-    id: 'portfolio',
-    title: 'The Golden Curse of Keong Mas',
+    title: 'Game Site',
     description: { en: 'Personal game site with blog and merchandise store.', id: 'Situs game pribadi dengan blog dan toko merchandise.' },
     tag: 'HTML/CSS/JS/PHP',
     image: tgcokm,
@@ -28,12 +19,12 @@ const WEB_PROJECTS = [
 
 const GAME_PROJECTS = [
   {
-    id: 'horror',
-    title: 'Escape from Edi',
-    description: { en: 'An indie 3D horror game.', id: 'Game horor 3D indie.' },
+    id: 'psychological horror',
+    title: 'Eyes of Desperation',
+    description: { en: 'A psychological horror experience where fear isn\'t your biggest enemy.', id: 'Pengalaman horor psikologis ketika rasa takut bukanlah musuh terbesarmu.' },
     tag: 'Unity',
-    image: efe,
-    url: 'https://remybilek.itch.io/escape-from-edi',
+    image: eod,
+    url: 'https://remybilek.itch.io/eyes-of-desperation',
   },
   {
     id: 'platformer',
@@ -44,13 +35,13 @@ const GAME_PROJECTS = [
     url: 'https://ikmalionn.itch.io/the-golden-curse-of-keong-mas',
   },
   {
-    id: 'psychological horror',
-    title: 'Eyes of Desperation',
-    description: { en: 'A psychological horror experience where fear isn\'t your biggest enemy.', id: 'Pengalaman horor psikologis ketika rasa takut bukanlah musuh terbesarmu.' },
+    id: 'horror',
+    title: 'Escape from Edi',
+    description: { en: 'An indie 3D horror game.', id: 'Game horor 3D indie.' },
     tag: 'Unity',
-    image: eod,
-    url: 'https://remybilek.itch.io/eyes-of-desperation',
-  },
+    image: efe,
+    url: 'https://remybilek.itch.io/escape-from-edi',
+  }
 ];
 
 const TABS = [
