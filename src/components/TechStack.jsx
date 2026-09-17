@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { FaHtml5, FaCss3Alt, FaJs, FaReact, FaGithub } from 'react-icons/fa';
-import { SiPhp, SiMysql, SiVisualstudiocode, SiUnity } from 'react-icons/si';
+import { SiPhp, SiMysql, SiPostgresql, SiVisualstudiocode, SiUnity } from 'react-icons/si';
 
 export default function TechStack() {
   const techsLogos = [
@@ -10,6 +10,7 @@ export default function TechStack() {
     { node: <SiPhp      className="text-[4rem]" />,  title: 'PHP',        href: 'https://www.php.net/' },
     { node: <FaReact    className="text-[4rem]" />,    title: 'React',      href: 'https://react.dev' },
     { node: <SiMysql    className="text-[4rem]" />,    title: 'MySQL',      href: 'https://www.mysql.com/' },
+    { node: <SiPostgresql    className="text-[4rem]" />,    title: 'PostgreSQL',      href: 'https://www.postgresql.org/' },
     { node: <SiVisualstudiocode className="text-[4rem]" />, title: 'VS Code', href: 'https://code.visualstudio.com/' },
     { node: <FaGithub   className="text-[4rem]" />,       title: 'GitHub',     href: 'https://github.com/' },
     { node: <SiUnity    className="text-[4rem]" />,       title: 'Unity',      href: 'https://unity.com/' },
