@@ -11,7 +11,7 @@ const WEB_PROJECTS = [
   {
     id: 'explorenusa',
     title: 'ExploreNusa',
-    description: { en: '', id: '' },
+    description: { en: 'A travel website for exploring Indonesia.', id: 'Situs wisata untuk menjelajahi Indonesia.' },
     tag: 'LARAVEL/PHP/JS/PROSTGRESQL',
     image: en,
     url: 'https://explorenusa-lyon.vercel.app/',
