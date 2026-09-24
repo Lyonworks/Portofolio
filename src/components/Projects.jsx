@@ -149,8 +149,6 @@ function MaintenanceCard({ title, description, tag, image, language }) {
 }
 
 function ProjectCard({ title, description, tag, image, url, language, isMaintenance }) {
-  const [isOpen, setIsOpen] = useState(false);
-
   if (isMaintenance) {
     return (
       <MaintenanceCard
@@ -164,77 +162,37 @@ function ProjectCard({ title, description, tag, image, url, language, isMaintena
   }
 
   return (
-    <>
-      <button
-        type="button"
-        onClick={() => setIsOpen(true)}
-        className="block w-full group cursor-pointer h-full text-left"
-      >
-        <BorderGlow {...CARD_GLOW}>
-          <div className="flex flex-col h-full transition-transform duration-300">
-            <div className="w-full h-36 overflow-hidden rounded-t-[18px]">
-              <img
-                src={image}
-                alt={title}
-                className="w-full h-full object-cover transition-transform duration-500"
-                onError={(e) => { e.currentTarget.style.display = 'none'; }}
-              />
-            </div>
-            <div className="flex flex-col flex-1 p-4">
-              <h3 className="text-sm font-mono font-semibold text-white mb-1 group-hover:text-blue-400 transition-colors duration-300">
-                {title}
-              </h3>
-              <p className="text-xs font-mono text-white/50 leading-relaxed flex-1">{description[language]}</p>
-              <div className="flex items-center justify-between mt-1">
-                <ProjectTag label={tag} />
-                <span className="text-xs font-mono text-white/30 group-hover:text-white/60 transition-colors duration-300">
-                  {language === 'id' ? 'Detail' : 'Details'}
-                </span>
-              </div>
-            </div>
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block group cursor-pointer h-full"
+    >
+      <BorderGlow {...CARD_GLOW}>
+        <div className="flex flex-col h-full transition-transform duration-300">
+          <div className="w-full h-36 overflow-hidden rounded-t-[18px]">
+            <img
+              src={image}
+              alt={title}
+              className="w-full h-full object-cover transition-transform duration-500"
+              onError={(e) => { e.currentTarget.style.display = 'none'; }}
+            />
           </div>
-        </BorderGlow>
-      </button>
-
-      {isOpen && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label={title}
-          onClick={() => setIsOpen(false)}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4"
-        >
-          <div
-            onClick={(event) => event.stopPropagation()}
-            className="w-full max-w-md rounded-[20px] border border-white/10 bg-[#120F17] p-6 shadow-2xl"
-          >
-            <div className="flex items-start justify-between gap-4">
-              <h2 className="text-lg font-mono font-semibold text-white">{title}</h2>
-              <button
-                type="button"
-                onClick={() => setIsOpen(false)}
-                aria-label={language === 'id' ? 'Tutup' : 'Close'}
-                className="text-xl leading-none text-white/50 hover:text-white"
-              >
-                ×
-              </button>
-            </div>
-            <p className="mt-4 text-sm font-mono leading-relaxed text-white/70">{description[language]}</p>
-            <div className="mt-6 flex items-center justify-between gap-4">
+          <div className="flex flex-col flex-1 p-4">
+            <h3 className="text-sm font-mono font-semibold text-white mb-1 group-hover:text-blue-400 transition-colors duration-300">
+              {title}
+            </h3> 
+            <p className="text-xs font-mono text-white/50 leading-relaxed flex-1">{description[language]}</p>
+            <div className="flex items-center justify-between mt-1">
               <ProjectTag label={tag} />
-              <a
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-lg bg-blue-600 px-4 py-2 text-xs font-mono text-white hover:bg-blue-500"
-              >
+              <span className="text-xs font-mono text-white/30 group-hover:text-white/60 transition-colors duration-300">
                 {language === 'id' ? 'Lihat' : 'View'} →
-              </a>
+              </span>
             </div>
           </div>
         </div>
-      )}
-    </>
+      </BorderGlow>
+    </a>
   );
 }
 
@@ -253,7 +211,7 @@ export default function Projects() {
   const [activeIndex, setActiveIndex] = useState(0);
   const navItems = TABS.map((tab) => ({
     label: tab.label[language],
-    href: `#${tab.label.en.toLowerCase()}`,
+    href: `#${tab.label.en.toLowerCase()}`,   
 }));
 
   const activeProjects = TABS[activeIndex]?.projects ?? [];
