@@ -103,10 +103,10 @@ function MaintenanceCard({ title, description, tag, image, language }) {
             <p className="text-xs font-mono text-white/50 leading-relaxed flex-1">
               {description[language]}
             </p>
-            <div className="flex items-center justify-between mt-1">
+            <div className="flex items-center justify-between pt-1 border-t border-white/10">
               <ProjectTag label={tag} />
-              <span className="text-xs font-mono text-red-400/60">
-                {language === 'id' ? 'Perbaikan' : 'Maintenance'}
+              <span className="text-xs font-mono text-white/30 line-through">
+                {language === 'id' ? 'Lihat' : 'View'} →
               </span>
             </div>
           </div>
@@ -119,27 +119,26 @@ function MaintenanceCard({ title, description, tag, image, language }) {
           speed={33}
           gap={6}
           colors="#f8fafc,#f1f5f9,#cbd5e1"
-          className="!w-full !h-full !aspect-auto border-blue-500/50 bg-[#120F17] !rounded-[20px]"
+          className="!w-full !h-full !aspect-auto border-white/50 bg-[#120F17] !rounded-[20px]"
         >
           <div className="absolute inset-0 p-4 flex flex-col justify-between z-10 pointer-events-none">
             <div className="absolute top-3 right-3 bg-red-950/80 border border-red-500/40 px-2 py-0.5 rounded-full text-[9px] font-mono text-red-400">
-              <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
               MAINTENANCE
             </div>
 
             <div className="my-auto text-center py-3 px-2 bg-red-950/60 border border-red-500/30 rounded-xl backdrop-blur-md">
               <p className="text-xs font-mono text-red-400 font-semibold mb-0.5">
-                ⚠️ {language === 'id' ? 'Situs Dalam Perbaikan' : 'Under Maintenance'}
+                {language === 'id' ? 'Situs Dalam Perbaikan' : 'Under Maintenance'}
               </p>
               <p className="text-[11px] font-mono text-white/70">
                 {language === 'id' ? 'Tidak dapat diakses saat ini' : 'Currently unavailable'}
               </p>
             </div>
 
-            <div className="flex items-center justify-between pt-1 border-t border-white/10">
+            <div className="flex items-center justify-between mt-1">
               <ProjectTag label={tag} />
-              <span className="text-xs font-mono text-white/30 line-through">
-                {language === 'id' ? 'Lihat' : 'View'} →
+              <span className="text-xs font-mono text-red-400/60">
+                {language === 'id' ? 'Perbaikan' : 'Maintenance'}
               </span>
             </div>
           </div>
@@ -156,6 +155,7 @@ function ProjectCard({ title, description, tag, image, url, language, isMaintena
         title={title}
         description={description}
         tag={tag}
+        image={image}
         language={language}
       />
     );
