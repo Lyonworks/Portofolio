@@ -82,14 +82,13 @@ function ProjectTag({ label }) {
 function MaintenanceCard({ title, description, tag, language }) {
   return (
     <PixelCard
-      variant="pink"
-      speed={40}
+      variant="default"
+      speed={33}
       gap={8}
-      colors="#ef4444,#dc2626,#991b1b"
-      className="w-full !h-full border-red-500/30 bg-[#120F17] !rounded-[20px] cursor-not-allowed select-none"
+      colors="#f8fafc,#f1f5f9,#cbd5e1"
+      className="!rounded-[20px] cursor-not-allowed select-none"
     >
       <div className="absolute inset-0 p-5 flex flex-col justify-between z-10 pointer-events-none">
-        {/* Badge Maintenance */}
         <div className="self-end flex items-center gap-1.5 bg-red-950/80 border border-red-500/50 px-2.5 py-1 rounded-full text-[10px] font-mono text-red-400">
           <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
           MAINTENANCE
@@ -101,13 +100,6 @@ function MaintenanceCard({ title, description, tag, language }) {
           </h3>
           <p className="text-xs font-mono text-white/50 leading-relaxed mb-4">
             {description[language]}
-          </p>
-        </div>
-
-        {/* Kotak Peringatan */}
-        <div className="py-2.5 px-3 rounded-lg bg-red-500/10 border border-red-500/20 text-center">
-          <p className="text-xs font-mono text-red-400 font-medium">
-            ⚠️ {language === 'id' ? 'Situs Dalam Perbaikan' : 'Under Maintenance'}
           </p>
         </div>
 
