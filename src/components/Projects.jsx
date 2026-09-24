@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import GooeyNav from './GooeyNav';
 import BorderGlow from './BorderGlow';
+import PixelCard from './PixelCard';
 import efe from '../assets/thumbnails/efe.jpg';
 import en from '../assets/thumbnails/en.png';
 import tgcokm from '../assets/thumbnails/tgcokm.png';
@@ -15,6 +16,7 @@ const WEB_PROJECTS = [
     tag: 'LARAVEL/PHP/JS/PROSTGRESQL',
     image: en,
     url: 'https://explorenusa-lyon.vercel.app/',
+    isMaintenance: false,
   },
   {
     id: 'game-site',
@@ -23,6 +25,7 @@ const WEB_PROJECTS = [
     tag: 'HTML/CSS/JS/PHP',
     image: tgcokm,
     url: 'https://pplgrolas.my.id/0079457224/',
+    isMaintenance: true,
   },
 ];
 
@@ -34,6 +37,7 @@ const GAME_PROJECTS = [
     tag: 'Unity',
     image: efe,
     url: 'https://remybilek.itch.io/escape-from-edi',
+    isMaintenance: false,
   },
   {
     id: 'the-golden-curse-of-keong-mas',
@@ -42,6 +46,7 @@ const GAME_PROJECTS = [
     tag: 'Unity',
     image: tgcokm,
     url: 'https://ikmalionn.itch.io/the-golden-curse-of-keong-mas',
+    isMaintenance: false,
   },
   {
     id: 'eyes-of-desperation',
@@ -50,6 +55,7 @@ const GAME_PROJECTS = [
     tag: 'Unity',
     image: eod,
     url: 'https://remybilek.itch.io/eyes-of-desperation',
+    isMaintenance: false,
   },
 ];
 
@@ -73,13 +79,67 @@ function ProjectTag({ label }) {
   );
 }
 
-function ProjectCard({ title, description, tag, image, url, language }) {
+function MaintenanceCard({ title, description, tag, language }) {
+  return (
+    <PixelCard
+      variant="pink"
+      speed={40}
+      gap={8}
+      colors="#ef4444,#dc2626,#991b1b"
+      className="w-full !h-full border-red-500/30 bg-[#120F17] !rounded-[20px] cursor-not-allowed select-none"
+    >
+      <div className="absolute inset-0 p-5 flex flex-col justify-between z-10 pointer-events-none">
+        {/* Badge Maintenance */}
+        <div className="self-end flex items-center gap-1.5 bg-red-950/80 border border-red-500/50 px-2.5 py-1 rounded-full text-[10px] font-mono text-red-400">
+          <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+          MAINTENANCE
+        </div>
+
+        <div>
+          <h3 className="text-sm font-mono font-semibold text-white/80 mb-2">
+            {title}
+          </h3>
+          <p className="text-xs font-mono text-white/50 leading-relaxed mb-4">
+            {description[language]}
+          </p>
+        </div>
+
+        {/* Kotak Peringatan */}
+        <div className="py-2.5 px-3 rounded-lg bg-red-500/10 border border-red-500/20 text-center">
+          <p className="text-xs font-mono text-red-400 font-medium">
+            ⚠️ {language === 'id' ? 'Situs Dalam Perbaikan' : 'Under Maintenance'}
+          </p>
+        </div>
+
+        <div className="flex items-center justify-between pt-2 border-t border-white/10">
+          <ProjectTag label={tag} />
+          <span className="text-xs font-mono text-white/20 line-through">
+            {language === 'id' ? 'Lihat' : 'View'} →
+          </span>
+        </div>
+      </div>
+    </PixelCard>
+  );
+}
+
+function ProjectCard({ title, description, tag, image, url, language, isMaintenance }) {
+  if (isMaintenance) {
+    return (
+      <MaintenanceCard
+        title={title}
+        description={description}
+        tag={tag}
+        language={language}
+      />
+    );
+  }
+
   return (
     <a
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="block group cursor-pointer"
+      className="block group cursor-pointer h-full"
     >
       <BorderGlow {...CARD_GLOW}>
         <div className="flex flex-col h-full transition-transform duration-300">
