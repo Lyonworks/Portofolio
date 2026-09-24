@@ -79,38 +79,78 @@ function ProjectTag({ label }) {
   );
 }
 
-function MaintenanceCard({ title, description, tag, language }) {
+function MaintenanceCard({ title, description, tag, image, language }) {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
-    <PixelCard
-      variant="default"
-      speed={33}
-      gap={8}
-      colors="#f8fafc,#f1f5f9,#cbd5e1"
-      className="!rounded-[20px] cursor-not-allowed select-none"
+    <div
+      className="relative w-full h-full cursor-not-allowed select-none rounded-[20px] overflow-hidden"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="absolute inset-0 p-5 flex flex-col justify-between z-10 pointer-events-none">
-        <div className="self-end flex items-center gap-1.5 bg-red-950/80 border border-red-500/50 px-2.5 py-1 rounded-full text-[10px] font-mono text-red-400">
-          <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-          MAINTENANCE
-        </div>
+      {isHovered ? (
+        <PixelCard
+        variant="default"
+        speed={33}
+        gap={8}
+        colors="#f8fafc,#f1f5f9,#cbd5e1"
+        className="!rounded-[20px] cursor-not-allowed select-none"
+        >
+          <div className="absolute inset-0 p-5 flex flex-col justify-between z-10 pointer-events-none">
+            <div className="self-end flex items-center gap-1.5 bg-red-950/90 border border-red-500/60 px-3 py-1 rounded-full text-[10px] font-mono text-red-400 shadow-lg">
+              <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+              MAINTENANCE
+            </div>
 
-        <div>
-          <h3 className="text-sm font-mono font-semibold text-white/80 mb-2">
-            {title}
-          </h3>
-          <p className="text-xs font-mono text-white/50 leading-relaxed mb-4">
-            {description[language]}
-          </p>
-        </div>
+            <div className="my-auto text-center py-4 px-2 bg-red-950/30 border border-red-500/20 rounded-xl backdrop-blur-xs">
+              <p className="text-sm font-mono text-red-400 font-semibold mb-1">
+                ⚠️ {language === 'id' ? 'Situs Dalam Perbaikan' : 'Under Maintenance'}
+              </p>
+              <p className="text-xs font-mono text-white/60">
+                {language === 'id' ? 'Tidak dapat diakses saat ini' : 'Currently unavailable'}
+              </p>
+            </div>
 
-        <div className="flex items-center justify-between pt-2 border-t border-white/10">
-          <ProjectTag label={tag} />
-          <span className="text-xs font-mono text-white/20 line-through">
-            {language === 'id' ? 'Lihat' : 'View'} →
-          </span>
-        </div>
-      </div>
-    </PixelCard>
+            <div className="flex items-center justify-between pt-2 border-t border-white/10">
+              <ProjectTag label={tag} />
+              <span className="text-xs font-mono text-white/30 line-through">
+                {language === 'id' ? 'Lihat' : 'View'} →
+              </span>
+            </div>
+          </div>
+        </PixelCard>
+      ) : (
+        <BorderGlow {...CARD_GLOW}>
+          <div className="flex flex-col h-full opacity-80 transition-opacity duration-300">
+            <div className="w-full h-36 overflow-hidden rounded-t-[18px] relative">
+              <img
+                src={image}
+                alt={title}
+                className="w-full h-full object-cover filter grayscale-20"
+                onError={(e) => { e.currentTarget.style.display = 'none'; }}
+              />
+              <div className="absolute top-3 right-3 bg-red-950/80 border border-red-500/40 px-2 py-0.5 rounded-full text-[9px] font-mono text-red-400">
+                MAINTENANCE
+              </div>
+            </div>
+            <div className="flex flex-col flex-1 p-4">
+              <h3 className="text-sm font-mono font-semibold text-white/90 mb-1">
+                {title}
+              </h3>
+              <p className="text-xs font-mono text-white/50 leading-relaxed flex-1">
+                {description[language]}
+              </p>
+              <div className="flex items-center justify-between mt-1">
+                <ProjectTag label={tag} />
+                <span className="text-xs font-mono text-red-400/60">
+                  {language === 'id' ? 'Perbaikan' : 'Maintenance'}
+                </span>
+              </div>
+            </div>
+          </div>
+        </BorderGlow>
+      )}
+    </div>
   );
 }
 
