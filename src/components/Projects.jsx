@@ -85,12 +85,13 @@ function MaintenanceCard({ title, description, tag, image, language }) {
       <BorderGlow {...CARD_GLOW}>
         <div className="flex flex-col h-full transition-opacity duration-300">
           <div className="w-full h-36 overflow-hidden rounded-t-[18px] relative">
-            <img
-              src={image}
-              alt={title}
-              className="w-full h-full object-cover filter grayscale-30"
-              onError={(e) => { e.currentTarget.style.display = 'none'; }}
-            />
+            {image && (
+              <img
+                src={image}
+                alt={title}
+                className="w-full h-full object-cover opacity-80"
+              />
+            )}
             <div className="absolute top-3 right-3 bg-red-950/80 border border-red-500/40 px-2 py-0.5 rounded-full text-[9px] font-mono text-red-400">
               MAINTENANCE
             </div>
@@ -118,10 +119,10 @@ function MaintenanceCard({ title, description, tag, image, language }) {
           speed={33}
           gap={6}
           colors="#f8fafc,#f1f5f9,#cbd5e1"
-          className="!w-full !h-full !aspect-auto border-red-500/50 bg-[#120F17] !rounded-[20px]"
+          className="!w-full !h-full !aspect-auto border-blue-500/50 bg-[#120F17] !rounded-[20px]"
         >
           <div className="absolute inset-0 p-4 flex flex-col justify-between z-10 pointer-events-none">
-            <div className="self-end flex items-center gap-1.5 bg-red-950/90 border border-red-500/60 px-2.5 py-1 rounded-full text-[10px] font-mono text-red-400 shadow-lg">
+            <div className="absolute top-3 right-3 bg-red-950/80 border border-red-500/40 px-2 py-0.5 rounded-full text-[9px] font-mono text-red-400">
               <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
               MAINTENANCE
             </div>
