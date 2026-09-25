@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import GooeyNav from './GooeyNav';
 import BorderGlow from './BorderGlow';
 import PixelCard from './PixelCard';
@@ -29,7 +29,7 @@ const WEB_PROJECTS = [
 
   {
     id: 'game-site',
-    title: 'Game Site',
+    title: 'The Golden Curse of Keong Mas - Game Site',
     description: {
       en: `The Game Site is a companion website developed for The Golden Curse of Keong Mas, an indie game project inspired by Indonesian folklore and cultural storytelling. The website serves as a central information platform where visitors can explore the game's narrative, learn about the developers, read project-related articles and news, and discover available merchandise.
 
@@ -104,7 +104,7 @@ const GAME_PROJECTS = [
       id: `Eyes of Desperation adalah project game psychological horror yang mengeksplorasi tema ketakutan, tekanan, ketidakpastian, dan pengambilan keputusan. Project ini dirancang untuk menciptakan pengalaman horor yang tidak hanya mengandalkan jump scare, tetapi juga menggunakan atmosfer, desain lingkungan, elemen cerita, serta berbagai situasi yang secara bertahap membangun ketegangan selama perjalanan pemain.
 
           Game ini dikembangkan menggunakan Unity dan Blender dengan fokus pada pembuatan environment 3D serta atmosfer yang mendukung genre psychological horror. Lingkungan permainan dirancang sebagai area yang dapat dieksplorasi, dengan elemen visual, pencahayaan, struktur level, dan detail lingkungan yang digunakan untuk membangun suasana keseluruhan game.
-          
+
           Project ini juga berfokus pada penciptaan situasi yang membuat pemain menghadapi ketidakpastian dan tekanan selama mengikuti perkembangan cerita. Dengan pendekatan tersebut, lingkungan dan narasi menjadi bagian penting dari pengalaman gameplay dan tidak hanya berfungsi sebagai latar visual.`
     },
     tag: 'UNITY/BLENDER',
@@ -148,7 +148,7 @@ function MaintenanceCard({ title, description, tag, image, language }) {
               />
             )}
             <div className="absolute top-3 right-3 bg-red-950/80 border border-red-500/40 px-2 py-0.5 rounded-full text-[9px] font-mono text-red-400">
-              MAINTENANCE
+              {language === 'id' ? 'PERBAIKAN' : 'MAINTANCE'}
             </div>
           </div>
           <div className="flex flex-col flex-1 p-4">
@@ -177,24 +177,13 @@ function MaintenanceCard({ title, description, tag, image, language }) {
           className="!w-full !h-full !aspect-auto border-white/50 bg-[#120F17] !rounded-[20px]"
         >
           <div className="absolute inset-0 p-4 flex flex-col justify-between z-10 pointer-events-none">
-            <div className="absolute top-3 right-3 bg-red-950/80 border border-red-500/40 px-2 py-0.5 rounded-full text-[9px] font-mono text-red-400">
-              MAINTENANCE
-            </div>
-
-            <div className="my-auto text-center py-3 px-2 bg-red-950/60 border border-red-500/30 rounded-xl backdrop-blur-md">
+            <div className="my-auto text-center py-3 px-2 bg-red-950/60 rounded-xl backdrop-blur-md">
               <p className="text-xs font-mono text-red-400 font-semibold mb-0.5">
                 {language === 'id' ? 'Situs Dalam Perbaikan' : 'Under Maintenance'}
               </p>
               <p className="text-[11px] font-mono text-white/70">
                 {language === 'id' ? 'Tidak dapat diakses saat ini' : 'Currently unavailable'}
               </p>
-            </div>
-
-            <div className="flex items-center justify-between mt-1">
-              <ProjectTag label={tag} />
-              <span className="text-xs font-mono text-red-400/60">
-                {language === 'id' ? 'Perbaikan' : 'Maintenance'}
-              </span>
             </div>
           </div>
         </PixelCard>
@@ -205,6 +194,11 @@ function MaintenanceCard({ title, description, tag, image, language }) {
 
 function ProjectCard({ title, description, tag, image, url, language, isMaintenance }) {
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [isOpen]);
 
   if (isMaintenance) {
     return (
