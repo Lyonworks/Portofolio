@@ -1,7 +1,6 @@
 import { useRef } from 'react';
 import { FaHtml5, FaCss3Alt, FaJs, FaReact, FaGithub } from 'react-icons/fa';
-import { SiPhp, SiMysql, SiPostgresql, SiVisualstudiocode, SiUnity } from 'react-icons/si';
-
+import { SiPhp, SiBootstrap, SiTailwindcss, SiMysql, SiVisualstudiocode, SiUnity, SiPostgresql } from 'react-icons/si';
 export default function TechStack() {
   const techsLogos = [
     { node: <FaHtml5    className="text-[4rem]" />,  title: 'HTML5',      href: 'https://html.spec.whatwg.org' },
@@ -9,6 +8,8 @@ export default function TechStack() {
     { node: <FaJs       className="text-[4rem]" />,  title: 'JavaScript', href: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript' },
     { node: <SiPhp      className="text-[4rem]" />,  title: 'PHP',        href: 'https://www.php.net/' },
     { node: <FaReact    className="text-[4rem]" />,    title: 'React',      href: 'https://react.dev' },
+    { node: <SiBootstrap className="text-[4rem]" />, title: 'Bootstrap 5', href: 'https://getbootstrap.com/' },
+    { node: <SiTailwindcss className="text-[4rem]" />, title: 'Tailwind CSS', href: 'https://tailwindcss.com/' },
     { node: <SiMysql    className="text-[4rem]" />,    title: 'MySQL',      href: 'https://www.mysql.com/' },
     { node: <SiPostgresql    className="text-[4rem]" />,    title: 'PostgreSQL',      href: 'https://www.postgresql.org/' },
     { node: <SiVisualstudiocode className="text-[4rem]" />, title: 'VS Code', href: 'https://code.visualstudio.com/' },
