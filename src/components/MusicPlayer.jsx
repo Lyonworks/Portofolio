@@ -7,38 +7,59 @@ import {
   ChevronUp,
   ExternalLink,
   Music4,
+  Pause,
+  Play,
   Search,
+  SkipBack,
+  SkipForward,
+  Volume2,
   X,
 } from "lucide-react";
-import { searchTracks } from "../lib/spotify.mjs";
+import { loadPlayerApi, searchTracks } from "../lib/youtube.mjs";
 import { useLanguage } from "../LanguageContext";
 
 const LABELS = {
   en: {
     music: "Music",
     idle: "Pick a song",
-    search: "Search Spotify...",
+    search: "Search YouTube...",
     searching: "Searching...",
     failed: "Search failed",
-    noProxy: "Search API not configured",
+    noKey: "Add VITE_YOUTUBE_API_KEY to enable search",
+    badKey: "YouTube API key rejected",
+    quota: "YouTube daily quota exhausted",
     empty: "No results",
+    emptyQuery: "Type to search",
     clear: "Clear search",
     toggle: "Toggle search",
-    listen: "Listen on Spotify",
-    emptyQuery: "Type to search",
+    listen: "Open on YouTube",
+    play: "Play",
+    pause: "Pause",
+    previous: "Previous track",
+    next: "Next track",
+    volume: "Volume",
+    seek: "Seek",
   },
   id: {
     music: "Musik",
     idle: "Pilih lagu",
-    search: "Cari di Spotify...",
+    search: "Cari di YouTube...",
     searching: "Mencari...",
     failed: "Pencarian gagal",
-    noProxy: "API pencarian belum dikonfigurasi",
+    noKey: "Tambahkan VITE_YOUTUBE_API_KEY untuk mengaktifkan pencarian",
+    badKey: "YouTube API key ditolak",
+    quota: "Kuota harian YouTube habis",
     empty: "Tidak ada hasil",
+    emptyQuery: "Ketik untuk mencari",
     clear: "Hapus pencarian",
     toggle: "Buka pencarian",
-    listen: "Dengarkan di Spotify",
-    emptyQuery: "Ketik untuk mencari",
+    listen: "Buka di YouTube",
+    play: "Putar",
+    pause: "Jeda",
+    previous: "Lagu sebelumnya",
+    next: "Lagu berikutnya",
+    volume: "Volume",
+    seek: "Geser",
   },
 };
 
@@ -48,24 +69,78 @@ const panel =
 const iconButton =
   "flex h-8 w-8 shrink-0 items-center justify-center rounded-none border-0 bg-transparent p-0 text-[#F5F5F5] transition-colors duration-300 hover:border-0 hover:bg-transparent hover:text-[#0000FF] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0000FF] disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:text-[#F5F5F5]";
 
-const embedSrc = (id) =>
-  `https://open.spotify.com/embed/track/${id}?utm_source=generator&theme=0`;
+const slider =
+  "h-1 w-full cursor-pointer appearance-none rounded-none border-0 bg-transparent p-0 accent-[#0000FF] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0000FF]";
 
 const formatTime = (seconds) => {
   if (!Number.isFinite(seconds) || seconds < 0) return "0:00";
   const total = Math.floor(seconds);
-  return `${Math.floor(total / 60)}:${String(total % 60).padStart(2, "0")}`;
+  const hours = Math.floor(total / 3600);
+  const mins = Math.floor((total % 3600) / 60);
+  const secs = total % 60;
+  return hours
+    ? `${hours}:${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`
+    : `${mins}:${String(secs).padStart(2, "0")}`;
+};
+
+const ERROR_LABEL = {
+  missing_api_key: "noKey",
+  bad_api_key: "badKey",
+  quota_exceeded: "quota",
 };
 
 export default function MusicPlayer({ className = "" }) {
   const { language } = useLanguage();
   const t = LABELS[language] || LABELS.en;
 
+  const hostRef = useRef(null);
+  const playerRef = useRef(null);
+  const ytRef = useRef(null);
+
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [status, setStatus] = useState("idle");
-  const [current, setCurrent] = useState(null);
+  const [queue, setQueue] = useState([]);
+  const [index, setIndex] = useState(-1);
+  const [ready, setReady] = useState(false);
+  const [playing, setPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [volume, setVolume] = useState(0.7);
+
+  const current = index >= 0 ? queue[index] || null : null;
+  const seekable = Number.isFinite(duration) && duration > 0;
+
+  useEffect(() => {
+    let alive = true;
+
+    loadPlayerApi().then((YT) => {
+      if (!alive || !YT || !hostRef.current || playerRef.current) return;
+
+      ytRef.current = YT;
+      // YT.Player swaps the host element for its own iframe, so the node must
+      // already be in the document and stay put.
+      playerRef.current = new YT.Player(hostRef.current, {
+        width: 1,
+        height: 1,
+        playerVars: { playsinline: 1, controls: 0, disablekb: 1, rel: 0 },
+        events: {
+          onReady: () => setReady(true),
+          onStateChange: (event) => {
+            const YT = ytRef.current;
+            if (!YT) return;
+            setPlaying(event.data === YT.PlayerState.PLAYING);
+            if (event.data === YT.PlayerState.ENDED) step(1);
+          },
+        },
+      });
+    });
+
+    return () => {
+      alive = false;
+    };
+  }, []);
 
   useEffect(() => {
     if (!open) return undefined;
@@ -88,8 +163,7 @@ export default function MusicPlayer({ className = "" }) {
         .catch((error) => {
           if (error.name === "AbortError") return;
           setResults([]);
-          // The proxy answers 500 when SPOTIFY_CLIENT_ID/SECRET are absent.
-          setStatus(error.message.includes("(500)") ? "unconfigured" : "error");
+          setStatus(ERROR_LABEL[error.message] || "error");
         });
     }, 400);
 
@@ -98,6 +172,64 @@ export default function MusicPlayer({ className = "" }) {
       controller.abort();
     };
   }, [query, open]);
+
+  // The Player API has no timeupdate event, so progress is polled.
+  useEffect(() => {
+    if (!ready) return undefined;
+
+    const id = window.setInterval(() => {
+      const player = playerRef.current;
+      if (!player) return;
+      setCurrentTime(player.getCurrentTime() || 0);
+      const total = player.getDuration();
+      if (Number.isFinite(total) && total > 0) setDuration(total);
+    }, 500);
+
+    return () => window.clearInterval(id);
+  }, [ready]);
+
+  useEffect(() => {
+    playerRef.current?.setVolume(volume * 100);
+  }, [volume, ready]);
+
+  useEffect(() => {
+    const player = playerRef.current;
+    if (!ready || !player || !current) return;
+    if (player.getVideoData?.()?.video_id === current.id) return;
+
+    player.loadVideoById(current.id);
+    player.playVideo();
+    setCurrentTime(0);
+  }, [current, ready]);
+
+  const step = (delta) => {
+    const at = index + delta;
+    if (at < 0 || at >= queue.length) return;
+    setIndex(at);
+  };
+
+  const toggle = () => {
+    const player = playerRef.current;
+    const YT = ytRef.current;
+    if (!player || !YT || !current) return;
+    if (player.getPlayerState() === YT.PlayerState.PLAYING) player.pauseVideo();
+    else player.playVideo();
+  };
+
+  const seek = (value) => {
+    const time = Number(value);
+    if (!Number.isFinite(time)) return;
+    playerRef.current?.seekTo(time, true);
+    setCurrentTime(time);
+  };
+
+  const choose = (tracks, at) => {
+    const track = tracks[at];
+    if (!track) return;
+    setQueue(tracks);
+    setIndex(at);
+    setOpen(false);
+  };
 
   return (
     <div
@@ -122,6 +254,16 @@ export default function MusicPlayer({ className = "" }) {
 
           <button
             type="button"
+            onClick={toggle}
+            disabled={!current || !ready}
+            aria-label={playing ? t.pause : t.play}
+            className={iconButton}
+          >
+            {playing ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
+          </button>
+
+          <button
+            type="button"
             onClick={() => setOpen((value) => !value)}
             aria-expanded={open}
             aria-label={t.toggle}
@@ -131,19 +273,58 @@ export default function MusicPlayer({ className = "" }) {
           </button>
         </div>
 
-        {current && (
-          <iframe
-            key={current.id}
-            title={`${current.title} - ${current.artist}`}
-            src={embedSrc(current.id)}
-            width="100%"
-            height="152"
-            loading="lazy"
-            frameBorder="0"
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            className="mt-3 border border-[#0000FF]"
+        <div className="mt-3 flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => step(-1)}
+            disabled={index <= 0}
+            aria-label={t.previous}
+            className={iconButton}
+          >
+            <SkipBack className="h-3.5 w-3.5" />
+          </button>
+
+          <input
+            type="range"
+            min={0}
+            max={seekable ? duration : 0}
+            step={0.5}
+            value={seekable ? Math.min(currentTime, duration) : 0}
+            disabled={!seekable}
+            onChange={(event) => seek(event.target.value)}
+            aria-label={t.seek}
+            className={slider}
           />
-        )}
+
+          <span className="shrink-0 text-[10px] opacity-70 tabular-nums">
+            {formatTime(currentTime)}
+            <span className="opacity-50"> / {formatTime(duration)}</span>
+          </span>
+
+          <button
+            type="button"
+            onClick={() => step(1)}
+            disabled={index < 0 || index >= queue.length - 1}
+            aria-label={t.next}
+            className={iconButton}
+          >
+            <SkipForward className="h-3.5 w-3.5" />
+          </button>
+        </div>
+
+        <div className="mt-2 flex items-center gap-2">
+          <Volume2 className="h-3.5 w-3.5 shrink-0 opacity-70" />
+          <input
+            type="range"
+            min={0}
+            max={1}
+            step={0.01}
+            value={volume}
+            onChange={(event) => setVolume(Number(event.target.value))}
+            aria-label={t.volume}
+            className={slider}
+          />
+        </div>
 
         {current?.page && (
           <a
@@ -156,6 +337,12 @@ export default function MusicPlayer({ className = "" }) {
             {t.listen}
           </a>
         )}
+
+        <div
+          ref={hostRef}
+          aria-hidden="true"
+          className="pointer-events-none absolute -left-[9999px] h-px w-px opacity-0"
+        />
 
         <AnimatePresence initial={false}>
           {open && (
@@ -192,11 +379,17 @@ export default function MusicPlayer({ className = "" }) {
                 {status === "loading" && (
                   <p className="mt-2 text-[11px] opacity-70">{t.searching}</p>
                 )}
+                {status === "noKey" && (
+                  <p className="mt-2 text-[11px] text-amber-400">{t.noKey}</p>
+                )}
+                {status === "badKey" && (
+                  <p className="mt-2 text-[11px] text-red-400">{t.badKey}</p>
+                )}
+                {status === "quota" && (
+                  <p className="mt-2 text-[11px] text-red-400">{t.quota}</p>
+                )}
                 {status === "error" && (
                   <p className="mt-2 text-[11px] text-red-400">{t.failed}</p>
-                )}
-                {status === "unconfigured" && (
-                  <p className="mt-2 text-[11px] text-amber-400">{t.noProxy}</p>
                 )}
                 {status === "idle" && !query.trim() && (
                   <p className="mt-2 text-[11px] opacity-70">{t.emptyQuery}</p>
@@ -207,13 +400,13 @@ export default function MusicPlayer({ className = "" }) {
 
                 {results.length > 0 && (
                   <ul className="mt-2 max-h-60 space-y-1 overflow-y-auto pr-1">
-                    {results.map((track) => {
+                    {results.map((track, at) => {
                       const active = current?.id === track.id;
                       return (
                         <li key={track.id}>
                           <button
                             type="button"
-                            onClick={() => setCurrent(track)}
+                            onClick={() => choose(results, at)}
                             className={`flex w-full items-center gap-2 rounded-none border-0 bg-transparent p-1 text-left transition-colors duration-300 hover:border-0 hover:bg-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0000FF] ${
                               active ? "bg-[#0000FF]/20" : "hover:bg-white/5"
                             }`}
