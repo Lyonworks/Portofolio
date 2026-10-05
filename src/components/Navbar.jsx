@@ -6,32 +6,49 @@ import {
   FaUser,
   FaCode,
 } from 'react-icons/fa';
+import { Music4 } from 'lucide-react';
 import { useLanguage } from '../LanguageContext';
 
-export default function Navbar() {
+const COPY = {
+  en: { home: 'Home', about: 'About', projects: 'Projects', music: 'Music' },
+  id: { home: 'Beranda', about: 'Tentang', projects: 'Proyek', music: 'Musik' },
+};
+
+export default function Navbar({ onToggleMusic, musicOpen = false }) {
   const { language, setLanguage } = useLanguage();
+  const copy = COPY[language] || COPY.en;
 
   const items = [
     {
       icon: <FaHome size={`20`} />,
-      label: 'Home',
+      label: copy.home,
       onClick: () => (window.location.hash = ''),
     },
     {
       icon: <FaUser size={`20`} />,
-      label: 'About',
+      label: copy.about,
       onClick: () => (window.location.hash = '#about'),
     },
     {
       icon: <FaCode size={`20`} />,
-      label: 'Projects',
+      label: copy.projects,
       onClick: () => (window.location.hash = '#projects'),
     },
+    ...(onToggleMusic
+      ? [
+          {
+            icon: <Music4 size={`20`} />,
+            label: copy.music,
+            onClick: onToggleMusic,
+            className: musicOpen ? 'text-[#0000FF]' : '',
+          },
+        ]
+      : []),
   ];
 
   return (
     <>
-      <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 z-50">
+      <nav className="fixed bottom-0 left-1/2 z-50">
       <Dock items={items} panelHeight={50} baseItemSize={33} magnification={44} />
       </nav>
       <div className="fixed bottom-6 left-6 z-50 flex rounded-full border-2 border-[#0000FF] bg-black p-1 shadow-[0_0_12px_#0000FF]">

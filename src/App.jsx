@@ -16,6 +16,15 @@ import { LanguageProvider } from './LanguageContext';
 export default function App() {
   const [hasEntered, setHasEntered] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [musicOpen, setMusicOpen] = useState(false);
+  const [musicMounted, setMusicMounted] = useState(false);
+
+  // Mounted on first open and kept alive afterwards: unmounting the player would
+  // drop the YouTube iframe and cut playback mid-song.
+  const toggleMusic = () => {
+    setMusicMounted(true);
+    setMusicOpen((value) => !value);
+  };
 
   useEffect(() => {
     if (!hasEntered) return undefined;
@@ -33,14 +42,14 @@ export default function App() {
         <Grainient />
 
         <main className={`transition-opacity duration-1000 ease-out ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
-          <Navbar />
+          <Navbar onToggleMusic={toggleMusic} musicOpen={musicOpen} />
           <Hero />
           <About />
           <TechStack />
           <Projects />
           <Footer />
           <Clock showDate={false} hour12={false} />
-          <MusicPlayer />
+          {musicMounted && <MusicPlayer visible={musicOpen} />}
         </main>
 
         {hasEntered && (
