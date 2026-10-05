@@ -20,6 +20,7 @@ function DockItem({
   children,
   className = "",
   onClick,
+  href,
   mouseX,
   spring,
   distance,
@@ -44,8 +45,13 @@ function DockItem({
   );
   const size = useSpring(targetSize, spring);
 
+  // Items with an href render as real anchors so the URL carries the hash and
+  // the browser handles activation, middle-click and focus for free.
+  const Component = href ? motion.a : motion.div;
+  const activation = href ? { href } : { onClick, role: "button" };
+
   return (
-    <motion.div
+    <Component
       ref={ref}
       style={{
         width: size,
@@ -55,16 +61,15 @@ function DockItem({
       onHoverEnd={() => isHovered.set(0)}
       onFocus={() => isHovered.set(1)}
       onBlur={() => isHovered.set(0)}
-      onClick={onClick}
-      className={`relative flex flex-col items-center justify-center ${className}`}
+      {...activation}
+      className={`relative flex flex-col items-center justify-center no-underline text-inherit ${className}`}
       tabIndex={0}
-      role="button"
-      aria-haspopup="true"
+      aria-haspopup={href ? undefined : "true"}
     >
       {Children.map(children, (child) =>
         cloneElement(child, { isHovered })
       )}
-    </motion.div>
+    </Component>
   );
 }
 
@@ -141,6 +146,7 @@ export default function Dock({
           <DockItem
             key={index}
             onClick={item.onClick}
+            href={item.href}
             className={item.className}
             mouseX={mouseX}
             spring={spring}

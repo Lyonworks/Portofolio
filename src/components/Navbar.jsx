@@ -22,17 +22,17 @@ export default function Navbar({ onToggleMusic, musicOpen = false }) {
     {
       icon: <FaHome size={`20`} />,
       label: copy.home,
-      onClick: () => (window.location.hash = ''),
+      href: '#',
     },
     {
       icon: <FaUser size={`20`} />,
       label: copy.about,
-      onClick: () => (window.location.hash = '#about'),
+      href: '#about',
     },
     {
       icon: <FaCode size={`20`} />,
       label: copy.projects,
-      onClick: () => (window.location.hash = '#projects'),
+      href: '#projects',
     },
     ...(onToggleMusic
       ? [
