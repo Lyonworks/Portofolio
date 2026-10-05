@@ -93,7 +93,7 @@ export default function MusicPlayer({ className = "" }) {
   const { language } = useLanguage();
   const t = LABELS[language] || LABELS.en;
 
-  const hostRef = useRef(null);
+  const wrapRef = useRef(null);
   const playerRef = useRef(null);
   const ytRef = useRef(null);
 
@@ -116,12 +116,19 @@ export default function MusicPlayer({ className = "" }) {
     let alive = true;
 
     loadPlayerApi().then((YT) => {
-      if (!alive || !YT || !hostRef.current || playerRef.current) return;
+      if (!alive || !YT || !wrapRef.current || playerRef.current) return;
 
       ytRef.current = YT;
-      // YT.Player swaps the host element for its own iframe, so the node must
-      // already be in the document and stay put.
-      playerRef.current = new YT.Player(hostRef.current, {
+
+      // YT.Player replaces the element you hand it with its own iframe. If that
+      // element is one React rendered, React keeps reconciling a node that is no
+      // longer there and throws NotFoundError on the next insertBefore. So the
+      // wrapper below stays empty in JSX and the node given to YT is appended
+      // imperatively, where React never touches its children.
+      const host = document.createElement("div");
+      wrapRef.current.appendChild(host);
+
+      playerRef.current = new YT.Player(host, {
         width: 1,
         height: 1,
         playerVars: { playsinline: 1, controls: 0, disablekb: 1, rel: 0 },
@@ -135,10 +142,15 @@ export default function MusicPlayer({ className = "" }) {
           },
         },
       });
+
+      if (!alive) host.remove();
     });
 
     return () => {
       alive = false;
+      playerRef.current?.destroy?.();
+      playerRef.current = null;
+      wrapRef.current?.replaceChildren();
     };
   }, []);
 
@@ -339,7 +351,7 @@ export default function MusicPlayer({ className = "" }) {
         )}
 
         <div
-          ref={hostRef}
+          ref={wrapRef}
           aria-hidden="true"
           className="pointer-events-none absolute -left-[9999px] h-px w-px opacity-0"
         />
