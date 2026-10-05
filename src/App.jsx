@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 import CircularText from './components/CircularText';
 import Clock from './components/Clock';
 import Grainient from './components/Grainient';
+import MusicPlayer from './components/MusicPlayer';
 import { LanguageProvider } from './LanguageContext';
 
 export default function App() {
@@ -39,6 +40,7 @@ export default function App() {
           <Projects />
           <Footer />
           <Clock showDate={false} hour12={false} />
+          <MusicPlayer />
         </main>
 
         {hasEntered && (

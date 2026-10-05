@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "vite",
     "preview": "vite preview",
-    "build": "node ./node_modules/vite/bin/vite.js build"
+    "build": "node ./node_modules/vite/bin/vite.js build",
+    "check": "node src/lib/spotify.check.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^9.56.6",
