@@ -15,7 +15,7 @@ import {
   Volume2,
   X,
 } from "lucide-react";
-import { loadPlayerApi, searchTracks } from "../lib/youtube.mjs";
+import { loadPlayerApi, pickRandomIndex, searchTracks } from "../lib/youtube.mjs";
 import { useLanguage } from "../LanguageContext";
 
 const LABELS = {
@@ -96,6 +96,7 @@ export default function MusicPlayer({ className = "" }) {
   const wrapRef = useRef(null);
   const playerRef = useRef(null);
   const ytRef = useRef(null);
+  const advanceRef = useRef(null);
 
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -138,7 +139,7 @@ export default function MusicPlayer({ className = "" }) {
             const YT = ytRef.current;
             if (!YT) return;
             setPlaying(event.data === YT.PlayerState.PLAYING);
-            if (event.data === YT.PlayerState.ENDED) step(1);
+            if (event.data === YT.PlayerState.ENDED) advanceRef.current?.();
           },
         },
       });
@@ -199,6 +200,16 @@ export default function MusicPlayer({ className = "" }) {
 
     return () => window.clearInterval(id);
   }, [ready]);
+
+  // The player is created once, so its ENDED handler would otherwise close over
+  // the queue from the first render, which is still empty. Refreshing this ref
+  // after every render is what makes shuffle-on-end actually advance.
+  useEffect(() => {
+    advanceRef.current = () => {
+      const next = pickRandomIndex(queue.length, index);
+      if (next >= 0) setIndex(next);
+    };
+  });
 
   useEffect(() => {
     playerRef.current?.setVolume(volume * 100);

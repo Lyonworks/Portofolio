@@ -6,6 +6,20 @@ export function embedUrl(id) {
   return `https://www.youtube.com/embed/${encodeURIComponent(id)}`;
 }
 
+// Picks the next track at random, never the one that just finished so a queue
+// never stalls on a repeat. Returns -1 when there is nothing to advance to.
+// Steps by a random offset within the other tracks rather than resampling until
+// a different one comes up, so it always terminates in a single step.
+export function pickRandomIndex(length, current, random = Math.random) {
+  if (!Number.isFinite(length) || length < 2) return -1;
+
+  if (!Number.isInteger(current) || current < 0 || current >= length) {
+    return Math.floor(random() * length);
+  }
+
+  return (current + 1 + Math.floor(random() * (length - 1))) % length;
+}
+
 export function mapTrack(track) {
   if (!track?.id) return null;
 
