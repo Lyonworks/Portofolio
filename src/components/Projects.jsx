@@ -336,13 +336,18 @@ function ProjectGrid({ projects, language }) {
   );
 }
 
-export default function Projects() {
+export default function Projects({ initialTab = 0 }) {
   const { language } = useLanguage();
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(initialTab);
+
+  useEffect(() => {
+    setActiveIndex(initialTab);
+  }, [initialTab]);
+
   const navItems = TABS.map((tab) => ({
     label: tab.label[language],
     href: `#${tab.label.en.toLowerCase()}`,
-}));
+  }));
 
   const activeProjects = TABS[activeIndex]?.projects ?? [];
 

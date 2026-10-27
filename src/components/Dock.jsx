@@ -48,7 +48,7 @@ function DockItem({
   // Items with an href render as real anchors so the URL carries the hash and
   // the browser handles activation, middle-click and focus for free.
   const Component = href ? motion.a : motion.div;
-  const activation = href ? { href } : { onClick, role: "button" };
+  const activation = href ? { href, onClick } : { onClick, role: "button" };
 
   return (
     <Component
